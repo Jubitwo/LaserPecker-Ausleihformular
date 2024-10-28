@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2); /* Sanfter Farbverlauf */
+}
+
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px; /* Abgerundete Ecken */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Tieferer Schatten */
+}
+
+h1 {
+  text-align: center;
+  color: #00796b; /* Dunklere Farbe für den Titel */
+  font-size: 2.5em; /* Größere Schriftgröße für den Titel */
+  margin-bottom: 20px; /* Abstand nach unten */
+}
+
+.label-container {
+  display: flex; /* Flexbox verwenden */
+  align-items: center; /* Vertikale Zentrierung */
+  margin: 10px 0; /* Abstand nach oben und unten */
+}
+
+label {
+  margin-right: 10px; /* Abstand zwischen Label und Icon */
+  flex: 1; /* Label nimmt den verfügbaren Platz ein */
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 12px; /* Mehr Padding für Eingabefelder */
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Abgerundete Ecken */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  transition: border-color 0.3s; /* Weiche Übergänge für den Rand */
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: #00796b; /* Randfarbe beim Fokus */
+}
+
+.checkbox {
+  margin: 10px 0;
+}
+
+button {
+  background-color: #00796b; /* Dunklere Hintergrundfarbe */
+  color: white;
+  border: none;
+  padding: 12px; /* Mehr Padding für Schaltflächen */
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s, transform 0.3s; /* Weicher Übergang für die Hintergrundfarbe */
+}
+
+button:hover {
+  background-color: #004d40; /* Dunklere Farbe beim Hover */
+  transform: translateY(-2px); /* Leichte Anhebung beim Hover */
+}
+
+#loan-list {
+  list-style-type: none; /* Keine Aufzählungszeichen */
+  padding: 0; /* Innenabstand auf 0 setzen */
+}
+
+#loan-list li {
+  background-color: #ffffff; /* Hintergrundfarbe der Listeneinträge */
+  margin: 5px 0; /* Außenabstand zwischen den Einträgen */
+  padding: 15px; /* Innenabstand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Listeneinträge */
+  transition: background-color 0.3s; /* Weicher Übergang für Hintergrundfarbe */
+}
+
+#loan-list li:hover {
+  background-color: #f1f1f1; /* Hintergrundfarbe beim Hover */
+}
+
+a {
+  color: #00796b; /* Farbe des Links */
+  text-decoration: none; /* Keine Unterstreichung */
+}
+
+a:hover {
+  text-decoration: underline; /* Unterstreichung beim Hover */
+}
+
+#message {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+}
