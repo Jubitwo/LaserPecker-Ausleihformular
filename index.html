@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f5">
+  <title>Wunschzettel &amp; Bestellung · innovativ AG</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #242424;
+      --muted: #626b6d;
+      --orange: #df741c;
+      --orange-dark: #a84d08;
+      --yellow-soft: #fff8d8;
+      --teal: #007f99;
+      --paper: #f5f6f5;
+      --line: #e0e3e1;
+      --white: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); line-height: 1.55; }
+    button, input, select, textarea { font: inherit; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 3px solid #00a9c7;
+      outline-offset: 3px;
+    }
+    .wrap { width: min(1060px, calc(100% - 36px)); margin-inline: auto; }
+    .topbar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 18px; padding-block: 8px; }
+    .brand { display: inline-flex; align-items: center; text-decoration: none; }
+    .brand img { display: block; width: 76px; height: 76px; object-fit: contain; mix-blend-mode: multiply; }
+    .school-logo { display: block; width: 142px; max-height: 86px; object-fit: contain; }
+    .top-note { color: var(--muted); font-size: .88rem; text-align: center; }
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 32px; padding-block: 36px 48px; }
+    .eyebrow { margin: 0 0 10px; color: var(--teal); font-size: .75rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { margin: 0 0 15px; font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: .99; letter-spacing: -.075em; }
+    h1 span { color: var(--orange-dark); }
+    h2 { margin: 0 0 8px; font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.15; letter-spacing: -.045em; }
+    p { margin: 0 0 11px; }
+    .hero-copy { max-width: 620px; color: var(--muted); font-size: 1.08rem; }
+    .hero-art { display: grid; min-height: 220px; place-items: center; overflow: hidden; border: 1px solid #b8e5eb; border-radius: 26px; background: #e5f6f8; }
+    .hero-art svg { width: min(90%, 350px); }
+    .steps { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 19px; }
+    .step { padding: 7px 11px; border-radius: 999px; background: white; color: #42494a; font-size: .82rem; font-weight: 750; }
+    .form-section { padding: 30px 0 65px; background: white; }
+    .form-card { padding: clamp(20px, 4vw, 34px); border: 1px solid var(--line); border-radius: 22px; background: white; box-shadow: 0 15px 42px rgb(35 49 44 / 7%); }
+    .intro { margin-bottom: 23px; color: var(--muted); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .field { display: grid; align-content: start; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    label, .legend { font-size: .9rem; font-weight: 760; }
+    .optional { color: var(--muted); font-size: .78rem; font-weight: 500; }
+    input, select, textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid #cbd2d2;
+      border-radius: 11px;
+      background: #fff;
+      color: var(--ink);
+    }
+    textarea { min-height: 112px; resize: vertical; }
+    input::placeholder, textarea::placeholder { color: #737d7f; }
+    .help { color: var(--muted); font-size: .78rem; }
+    fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+    legend { margin-bottom: 8px; }
+    .choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .choice {
+      display: flex;
+      min-height: 56px;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .choice:has(input:checked) { border-color: var(--teal); background: #eaf7f9; }
+    .choice input { width: 18px; min-height: 18px; height: 18px; flex: 0 0 18px; margin: 2px 0 0; accent-color: var(--teal); }
+    .choice-copy { display: grid; gap: 2px; }
+    .choice-copy strong { font-size: .91rem; }
+    .choice-copy small { color: var(--muted); font-size: .77rem; }
+    .conditional { display: grid; grid-column: 1 / -1; gap: 16px; padding: 16px; border: 1px solid #cce8ec; border-radius: 14px; background: #f3fafb; }
+    .conditional[hidden] { display: none; }
+    .consent { display: flex; align-items: flex-start; gap: 10px; padding: 13px; border: 1px solid #e1e4e2; border-radius: 11px; background: #fafbfa; }
+    .consent input { width: 18px; min-height: 18px; height: 18px; flex: 0 0 18px; margin: 2px 0 0; accent-color: var(--teal); }
+    .consent span { color: #484f50; font-size: .85rem; }
+    .privacy-note { padding: 13px 15px; border-left: 3px solid var(--orange); border-radius: 0 10px 10px 0; background: var(--yellow-soft); color: #51400f; font-size: .84rem; }
+    .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 21px; }
+    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 8px; padding: 0 19px; border: 0; border-radius: 12px; background: var(--orange-dark); color: white; font-weight: 800; cursor: pointer; transition: background .2s, transform .2s; }
+    .button:hover { transform: translateY(-1px); background: #803a06; }
+    .submit-note { color: var(--muted); font-size: .82rem; }
+    .status { margin: 17px 0 0; font-weight: 700; }
+    .status.error { color: #a23c32; }
+    .status.success { color: var(--teal); }
+    .fallback { margin-top: 15px; padding: 15px; border: 1px solid var(--line); border-radius: 12px; background: #fafbfa; }
+    .fallback[hidden] { display: none; }
+    .fallback textarea { min-height: 140px; margin-top: 9px; font-size: .83rem; }
+    .fallback-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 9px; }
+    .button.secondary { border: 1px solid #a9dce3; background: #eaf7f9; color: #005e71; }
+    .button.secondary:hover { background: #d7f0f3; }
+    .info-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+    .info-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fbfcfb; }
+    .calculator-note { border-color: #e7b98f; border-left: 5px solid var(--orange); background: var(--yellow-soft); }
+    .info-card strong { display: block; margin-bottom: 5px; }
+    .info-card p { margin: 0; color: var(--muted); font-size: .88rem; }
+    footer { padding-block: 25px; color: var(--muted); font-size: .83rem; text-align: center; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; padding-top: 25px; }
+      .hero-art { display: none; }
+      .info-panel { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .wrap { width: min(100% - 26px, 1060px); }
+      .topbar { grid-template-columns: 1fr 1fr; row-gap: 0; }
+      .brand img { width: 60px; height: 60px; }
+      .school-logo { width: 120px; max-height: 68px; justify-self: end; }
+      .top-note { grid-column: 1 / -1; grid-row: 2; text-align: center; }
+      .form-grid, .choice-grid { grid-template-columns: 1fr; }
+      .field.full, .conditional { grid-column: auto; }
+      .form-card { padding: 18px; }
+      .button { width: 100%; }
+      .fallback-actions .button { width: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#" aria-label="innovativ AG Startseite">
+      <img src="assets/innovativ-ag-logo.jpg" alt="Logo der innovativ AG">
+    </a>
+    <span class="top-note">Gute Ideen? Wir gravieren sie. Naja – manche davon.</span>
+    <img class="school-logo" src="assets/walter-knoll-schulverbund-logo.png" alt="Walter Knoll Schulverbund · Realschule und Werkrealschule">
+  </header>
+
+  <main>
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Schulbedarf · Gravur · gute Einfälle</p>
+        <h1 id="hero-title">Dein Wunsch.<br><span>Unser Auftrag.</span></h1>
+        <p class="hero-copy">Du brauchst im Schuljahr einen neuen Taschenrechner? Eure Klasse wünscht sich etwas Besonderes? Oder hast du eine Idee, die den Schulalltag schlauer, praktischer oder einfach schöner macht? Erzähl's uns hier.</p>
+        <div class="steps" aria-label="So funktioniert es">
+          <span class="step">1. Wunsch eintragen</span>
+          <span class="step">2. E-Mail-Entwurf öffnen</span>
+          <span class="step">3. Prüfen &amp; absenden</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 230">
+          <rect x="127" y="24" width="102" height="188" rx="23" fill="#242424" transform="rotate(8 178 118)"/>
+          <rect x="138" y="39" width="79" height="52" rx="8" fill="#fff8d8" transform="rotate(8 178 65)"/>
+          <text x="152" y="72" fill="#a84d08" font-size="19" font-family="sans-serif" font-weight="700" transform="rotate(8 178 65)">12345</text>
+          <circle cx="158" cy="117" r="8" fill="#fff" opacity=".95"/><circle cx="181" cy="120" r="8" fill="#fff" opacity=".95"/><circle cx="204" cy="123" r="8" fill="#fff" opacity=".95"/>
+          <circle cx="155" cy="143" r="8" fill="#fff" opacity=".95"/><circle cx="178" cy="146" r="8" fill="#fff" opacity=".95"/><circle cx="201" cy="149" r="8" fill="#fff" opacity=".95"/>
+          <path d="M73 77l14 14 29-34" fill="none" stroke="#007f99" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M253 155c24-19 37-7 33 6-3 10-18 19-34 30-16-11-31-20-34-30-4-13 9-25 35-6z" fill="#df741c"/>
+          <text x="51" y="168" fill="#007f99" font-size="17" font-family="sans-serif" font-weight="700">deine Idee</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="form-section" aria-labelledby="form-title">
+      <div class="wrap">
+        <div class="info-panel" aria-label="Informationen zu Taschenrechnern und Angeboten">
+          <article class="info-card calculator-note">
+            <strong>📟 Taschenrechner im laufenden Schuljahr?</strong>
+            <p>Kein Problem: Trag ein, welches Modell oder welche Art von Rechner du brauchst. Falls du es nicht weißt, beschreib einfach, wofür du ihn benötigst.</p>
+          </article>
+          <article class="info-card">
+            <strong>💡 Noch eine Idee im Kopf?</strong>
+            <p>Die innovativ AG freut sich über Vorschläge für Schülerinnen, Schüler, Lehrkräfte und ganze Klassen. Gute Ideen dürfen ruhig größer sein als ein Taschenrechner.</p>
+          </article>
+        </div>
+
+        <form class="form-card" id="request-form">
+          <p class="eyebrow">Der digitale Wunschzettel</p>
+          <h2 id="form-title">Was dürfen wir für dich tun?</h2>
+          <p class="intro">Füll die Felder aus, die zu deiner Anfrage passen. Pflichtfelder sind mit * markiert. Vor dem Versand öffnet sich eine fertige E-Mail, die du noch prüfen kannst.</p>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="requester-type">Ich frage an als *</label>
+              <select id="requester-type" name="requester-type" required>
+                <option value="">Bitte auswählen …</option>
+                <option value="Schülerin oder Schüler">Schülerin oder Schüler</option>
+                <option value="Lehrkraft">Lehrkraft</option>
+                <option value="Klasse oder Gruppe">Klasse oder Gruppe</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="full-name">Vor- und Nachname *</label>
+              <input id="full-name" name="full-name" type="text" autocomplete="name" maxlength="100" placeholder="Zum Beispiel Alex Beispiel" required>
+            </div>
+
+            <div class="conditional" id="student-fields" hidden>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="student-class">Klasse *</label>
+                  <input id="student-class" name="student-class" type="text" maxlength="30" placeholder="Zum Beispiel 8b" required>
+                </div>
+                <div class="field">
+                  <label for="student-teacher">Klassen- oder betreuende Lehrkraft *</label>
+                  <input id="student-teacher" name="student-teacher" type="text" maxlength="100" placeholder="Vor- und Nachname" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="conditional" id="teacher-fields" hidden>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="teacher-subject">Fach / Funktion <span class="optional">(optional)</span></label>
+                  <input id="teacher-subject" name="teacher-subject" type="text" maxlength="80" placeholder="Zum Beispiel Mathematik, Klassenleitung">
+                </div>
+                <div class="field">
+                  <label for="teacher-class">Betroffene Klasse oder Gruppe *</label>
+                  <input id="teacher-class" name="teacher-class" type="text" maxlength="80" placeholder="Zum Beispiel 8b oder Mathe-AG" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="conditional" id="class-fields" hidden>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="group-name">Klasse / Gruppe *</label>
+                  <input id="group-name" name="group-name" type="text" maxlength="80" placeholder="Zum Beispiel 8b" required>
+                </div>
+                <div class="field">
+                  <label for="contact-person">Ansprechperson *</label>
+                  <input id="contact-person" name="contact-person" type="text" maxlength="100" placeholder="Name der Klassensprecherin / des Klassensprechers">
+                </div>
+                <div class="field full">
+                  <label for="group-teacher">Zuständige Lehrkraft *</label>
+                  <input id="group-teacher" name="group-teacher" type="text" maxlength="100" placeholder="Vor- und Nachname">
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="contact-email">E-Mail für Rückfragen *</label>
+              <input id="contact-email" name="contact-email" type="email" autocomplete="email" maxlength="150" placeholder="name@beispiel.de" required>
+              <span class="help">Am besten die Schul-E-Mail-Adresse. Sie wird nur zur Bearbeitung der Anfrage verwendet.</span>
+            </div>
+            <div class="field">
+              <label for="contact-method">Wie erreichen wir dich am besten? *</label>
+              <select id="contact-method" name="contact-method" required>
+                <option value="">Bitte auswählen …</option>
+                <option>E-Mail</option>
+                <option>Über die angegebene Lehrkraft</option>
+                <option>Über das Sekretariat</option>
+              </select>
+            </div>
+
+            <fieldset class="field full">
+              <legend>Worum geht's? Wähle alles Passende aus. *</legend>
+              <div class="choice-grid">
+                <label class="choice">
+                  <input type="checkbox" name="request-kind" value="Taschenrechner">
+                  <span class="choice-copy"><strong>Taschenrechner</strong><small>Ich brauche einen während des Schuljahres.</small></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" name="request-kind" value="Gravur">
+                  <span class="choice-copy"><strong>Gravur</strong><small>Name, Initialen oder eine andere zulässige Beschriftung.</small></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" name="request-kind" value="Angebot für Lehrkräfte">
+                  <span class="choice-copy"><strong>Angebot für Lehrkräfte</strong><small>Material, Unterrichtsidee oder praktischer Bedarf.</small></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" name="request-kind" value="Angebot für Klasse oder Gruppe">
+                  <span class="choice-copy"><strong>Angebot für Klasse / Gruppe</strong><small>Ein gemeinsamer Wunsch oder eine Sammelanfrage.</small></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" name="request-kind" value="Eigene Idee">
+                  <span class="choice-copy"><strong>Eigene Idee</strong><small>Etwas, das es an unserer Schule noch geben sollte.</small></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" name="request-kind" value="Sonstige Anfrage">
+                  <span class="choice-copy"><strong>Etwas anderes</strong><small>Wir sind neugierig – erzähl uns davon.</small></span>
+                </label>
+              </div>
+              <span class="help" id="request-kind-help">Bitte mindestens eine Möglichkeit auswählen.</span>
+            </fieldset>
+
+            <div class="field">
+              <label for="quantity">Anzahl / gewünschte Menge <span class="optional">(falls relevant)</span></label>
+              <input id="quantity" name="quantity" type="number" min="1" max="500" step="1" inputmode="numeric" placeholder="Zum Beispiel 1">
+            </div>
+            <div class="field">
+              <label for="needed-by">Bis wann wird es ungefähr benötigt? <span class="optional">(optional)</span></label>
+              <input id="needed-by" name="needed-by" type="date">
+            </div>
+
+            <div class="field full">
+              <label for="engraving">Wunschtext für eine Gravur <span class="optional">(optional)</span></label>
+              <input id="engraving" name="engraving" type="text" maxlength="40" placeholder="Bitte keine sensiblen oder privaten Angaben eingravieren lassen.">
+              <span class="help">Gravurwünsche werden vor der Umsetzung geprüft. Keine beleidigenden, vertraulichen oder personenbezogenen Angaben anderer Personen eintragen.</span>
+            </div>
+
+            <div class="field full">
+              <label for="details">Dein Wunsch / deine Bestellung im Detail *</label>
+              <textarea id="details" name="details" maxlength="2000" placeholder="Was genau brauchst du? Gibt es ein bestimmtes Modell, einen Anlass oder weitere wichtige Infos? Je genauer, desto besser können wir helfen." required></textarea>
+            </div>
+
+            <label class="consent field full">
+              <input id="privacy-consent" name="privacy-consent" type="checkbox" required>
+              <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung dieser Anfrage an die innovativ AG übermittelt werden. Ich trage nur Informationen ein, die dafür notwendig sind. *</span>
+            </label>
+
+            <div class="privacy-note field full">
+              <strong>Gut zu wissen:</strong> Diese Seite speichert deine Angaben nicht. Beim Klick wird eine vorausgefüllte E-Mail an <strong>bickel.julian@schulverbund-bad-saulgau.de</strong> vorbereitet. Dein E-Mail-Programm fragt dich anschließend, ob du sie senden möchtest. Bitte gib keine Passwörter, Gesundheitsdaten oder andere vertrauliche Informationen an.
+            </div>
+          </div>
+
+          <div class="submit-row">
+            <button class="button" type="submit">Wunschzettel losschicken ✉</button>
+            <span class="submit-note">Noch kein Kaufversprechen – wir melden uns erst mit den nächsten Schritten.</span>
+          </div>
+          <p class="status" id="form-status" aria-live="polite"></p>
+
+          <div class="fallback" id="email-fallback" hidden>
+            <strong>Falls sich kein E-Mail-Programm geöffnet hat</strong>
+            <p class="help">Kopiere den vorbereiteten Text und sende ihn selbst an bickel.julian@schulverbund-bad-saulgau.de.</p>
+            <textarea id="email-copy" readonly aria-label="Vorbereiteter E-Mail-Text"></textarea>
+            <div class="fallback-actions">
+              <button class="button secondary" id="copy-email" type="button">Text kopieren</button>
+              <a class="button secondary" id="open-email" href="mailto:bickel.julian@schulverbund-bad-saulgau.de">E-Mail erneut öffnen</a>
+            </div>
+            <p class="status" id="copy-status" aria-live="polite"></p>
+          </div>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">innovativ AG · Gemeinsam machen wir den Schulalltag ein Stück praktischer.</footer>
+
+  <script>
+    const recipient = "bickel.julian@schulverbund-bad-saulgau.de";
+    const form = document.querySelector("#request-form");
+    const requesterType = document.querySelector("#requester-type");
+    const studentFields = document.querySelector("#student-fields");
+    const teacherFields = document.querySelector("#teacher-fields");
+    const classFields = document.querySelector("#class-fields");
+    const status = document.querySelector("#form-status");
+    const fallback = document.querySelector("#email-fallback");
+    const emailCopy = document.querySelector("#email-copy");
+    const openEmail = document.querySelector("#open-email");
+
+    function setSection(section, visible) {
+      section.hidden = !visible;
+      section.querySelectorAll("input").forEach(input => {
+        input.required = visible && input.dataset.required === "true";
+        if (!visible) input.value = "";
+      });
+    }
+
+    studentFields.querySelectorAll("input").forEach(input => { input.dataset.required = "true"; });
+    teacherFields.querySelectorAll("input").forEach(input => {
+      if (input.id === "teacher-class") input.dataset.required = "true";
+    });
+    classFields.querySelectorAll("input").forEach(input => { input.dataset.required = "true"; });
+
+    requesterType.addEventListener("change", () => {
+      const type = requesterType.value;
+      setSection(studentFields, type === "Schülerin oder Schüler");
+      setSection(teacherFields, type === "Lehrkraft");
+      setSection(classFields, type === "Klasse oder Gruppe");
+    });
+
+    function fieldValue(name) {
+      return form.elements.namedItem(name)?.value.trim() || "Keine Angabe";
+    }
+
+    function buildEmailBody() {
+      const selectedKinds = [...form.querySelectorAll('input[name="request-kind"]:checked')].map(input => input.value);
+      const details = [
+        "Neue Anfrage an die innovativ AG",
+        "",
+        `Anfragende Person: ${fieldValue("full-name")}`,
+        `Anfrage als: ${fieldValue("requester-type")}`,
+        `Kontakt-E-Mail: ${fieldValue("contact-email")}`,
+        `Kontaktwunsch: ${fieldValue("contact-method")}`,
+        "",
+        "Schulbezug:",
+        `Klasse / Gruppe: ${fieldValue("student-class") !== "Keine Angabe" ? fieldValue("student-class") : fieldValue("teacher-class") !== "Keine Angabe" ? fieldValue("teacher-class") : fieldValue("group-name")}`,
+        `Zuständige Lehrkraft: ${fieldValue("student-teacher") !== "Keine Angabe" ? fieldValue("student-teacher") : fieldValue("group-teacher")}`,
+        `Fach / Funktion: ${fieldValue("teacher-subject")}`,
+        `Ansprechperson der Gruppe: ${fieldValue("contact-person")}`,
+        "",
+        `Thema: ${selectedKinds.join(", ")}`,
+        `Anzahl / Menge: ${fieldValue("quantity")}`,
+        `Benötigt bis: ${fieldValue("needed-by")}`,
+        `Gravurwunsch: ${fieldValue("engraving")}`,
+        "",
+        "Details:",
+        fieldValue("details"),
+        "",
+        "Die Einwilligung zur Verwendung der Angaben für diese Anfrage wurde bestätigt."
+      ];
+      return details.join("\n");
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      status.textContent = "";
+      status.className = "status";
+
+      if (!form.reportValidity()) return;
+
+      const requestKinds = [...form.querySelectorAll('input[name="request-kind"]:checked')];
+      if (requestKinds.length === 0) {
+        status.textContent = "Wähle bitte mindestens eine Art der Anfrage aus.";
+        status.className = "status error";
+        document.querySelector("#request-kind-help").scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      const subject = `Anfrage innovativ AG – ${fieldValue("requester-type")} – ${fieldValue("full-name")}`;
+      const body = buildEmailBody();
+      const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      emailCopy.value = body;
+      openEmail.href = mailto;
+      fallback.hidden = false;
+      status.textContent = "Deine E-Mail ist vorbereitet. Bitte prüfe sie im E-Mail-Programm und klicke dort auf „Senden“.";
+      status.className = "status success";
+
+      window.location.href = mailto;
+    });
+
+    document.querySelector("#copy-email").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(emailCopy.value);
+        document.querySelector("#copy-status").textContent = "E-Mail-Text wurde kopiert.";
+        document.querySelector("#copy-status").className = "status success";
+      } catch (error) {
+        emailCopy.focus();
+        emailCopy.select();
+        document.querySelector("#copy-status").textContent = "Automatisches Kopieren ist hier nicht verfügbar. Der Text ist markiert – kopiere ihn mit Strg+C oder ⌘C.";
+        document.querySelector("#copy-status").className = "status";
+      }
+    });
+  </script>
+</body>
+</html>
