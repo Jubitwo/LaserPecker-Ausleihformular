@@ -17,7 +17,7 @@
       --paper: #f5f6f5;
       --line: #e0e3e1;
       --white: #fff;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
       color: var(--ink);
     }
 
@@ -32,8 +32,8 @@
     .wrap { width: min(1060px, calc(100% - 36px)); margin-inline: auto; }
     .topbar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 18px; padding-block: 8px; }
     .brand { display: inline-flex; align-items: center; text-decoration: none; }
-    .brand img { display: block; width: 76px; height: 76px; object-fit: contain; mix-blend-mode: multiply; }
-    .school-logo { display: block; width: 142px; max-height: 86px; object-fit: contain; }
+    .brand img { display: block; width: 92px; height: 92px; object-fit: contain; mix-blend-mode: multiply; }
+    .school-logo { display: block; width: 170px; max-height: 100px; object-fit: contain; }
     .top-note { color: var(--muted); font-size: .88rem; text-align: center; }
     .hero { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 32px; padding-block: 36px 48px; }
     .eyebrow { margin: 0 0 10px; color: var(--teal); font-size: .75rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
@@ -104,7 +104,7 @@
     .fallback-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 9px; }
     .button.secondary { border: 1px solid #a9dce3; background: #eaf7f9; color: #005e71; }
     .button.secondary:hover { background: #d7f0f3; }
-    .info-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+    .info-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 0 26px; }
     .info-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fbfcfb; }
     .calculator-note { border-color: #e7b98f; border-left: 5px solid var(--orange); background: var(--yellow-soft); }
     .info-card strong { display: block; margin-bottom: 5px; }
@@ -120,8 +120,8 @@
     @media (max-width: 520px) {
       .wrap { width: min(100% - 26px, 1060px); }
       .topbar { grid-template-columns: 1fr 1fr; row-gap: 0; }
-      .brand img { width: 60px; height: 60px; }
-      .school-logo { width: 120px; max-height: 68px; justify-self: end; }
+      .brand img { width: 68px; height: 68px; }
+      .school-logo { width: 136px; max-height: 76px; justify-self: end; }
       .top-note { grid-column: 1 / -1; grid-row: 2; text-align: center; }
       .form-grid, .choice-grid { grid-template-columns: 1fr; }
       .field.full, .conditional { grid-column: auto; }
@@ -137,10 +137,10 @@
 <body>
   <header class="wrap topbar">
     <a class="brand" href="#" aria-label="innovativ AG Startseite">
-      <img src="assets/innovativ-ag-logo.jpg" alt="Logo der innovativ AG">
+      <img src="images/Logo%202.jpg" alt="Logo der innovativ AG">
     </a>
     <span class="top-note">Gute Ideen? Wir gravieren sie. Naja – manche davon.</span>
-    <img class="school-logo" src="assets/walter-knoll-schulverbund-logo.png" alt="Walter Knoll Schulverbund · Realschule und Werkrealschule">
+    <img class="school-logo" src="images/Logo%201.png" alt="Walter Knoll Schulverbund · Realschule und Werkrealschule">
   </header>
 
   <main>
@@ -185,12 +185,12 @@
         <form class="form-card" id="request-form">
           <p class="eyebrow">Der digitale Wunschzettel</p>
           <h2 id="form-title">Was dürfen wir für dich tun?</h2>
-          <p class="intro">Füll die Felder aus, die zu deiner Anfrage passen. Pflichtfelder sind mit * markiert. Vor dem Versand öffnet sich eine fertige E-Mail, die du noch prüfen kannst.</p>
+          <p class="intro">Füll nur die Felder aus, die für deinen Wunsch wichtig sind. Pflichtangaben sind mit * markiert. Vor dem Versand kannst du die vorbereitete E-Mail prüfen.</p>
 
           <div class="form-grid">
             <div class="field">
-              <label for="requester-type">Ich frage an als *</label>
-              <select id="requester-type" name="requester-type" required>
+              <label for="requester-type">Ich frage an als <span class="optional">(optional)</span></label>
+              <select id="requester-type" name="requester-type">
                 <option value="">Bitte auswählen …</option>
                 <option value="Schülerin oder Schüler">Schülerin oder Schüler</option>
                 <option value="Lehrkraft">Lehrkraft</option>
@@ -199,19 +199,19 @@
               </select>
             </div>
             <div class="field">
-              <label for="full-name">Vor- und Nachname *</label>
-              <input id="full-name" name="full-name" type="text" autocomplete="name" maxlength="100" placeholder="Zum Beispiel Alex Beispiel" required>
+              <label for="full-name">Vor- und Nachname <span class="optional">(optional)</span></label>
+              <input id="full-name" name="full-name" type="text" autocomplete="name" maxlength="100" placeholder="Zum Beispiel Alex Beispiel">
             </div>
 
             <div class="conditional" id="student-fields" hidden>
               <div class="form-grid">
                 <div class="field">
-                  <label for="student-class">Klasse *</label>
-                  <input id="student-class" name="student-class" type="text" maxlength="30" placeholder="Zum Beispiel 8b" required>
+                  <label for="student-class">Klasse <span class="optional">(optional)</span></label>
+                  <input id="student-class" name="student-class" type="text" maxlength="30" placeholder="Zum Beispiel 8b">
                 </div>
                 <div class="field">
-                  <label for="student-teacher">Klassen- oder betreuende Lehrkraft *</label>
-                  <input id="student-teacher" name="student-teacher" type="text" maxlength="100" placeholder="Vor- und Nachname" required>
+                  <label for="student-teacher">Klassen- oder betreuende Lehrkraft <span class="optional">(optional)</span></label>
+                  <input id="student-teacher" name="student-teacher" type="text" maxlength="100" placeholder="Vor- und Nachname">
                 </div>
               </div>
             </div>
@@ -223,8 +223,8 @@
                   <input id="teacher-subject" name="teacher-subject" type="text" maxlength="80" placeholder="Zum Beispiel Mathematik, Klassenleitung">
                 </div>
                 <div class="field">
-                  <label for="teacher-class">Betroffene Klasse oder Gruppe *</label>
-                  <input id="teacher-class" name="teacher-class" type="text" maxlength="80" placeholder="Zum Beispiel 8b oder Mathe-AG" required>
+                  <label for="teacher-class">Betroffene Klasse oder Gruppe <span class="optional">(optional)</span></label>
+                  <input id="teacher-class" name="teacher-class" type="text" maxlength="80" placeholder="Zum Beispiel 8b oder Mathe-AG">
                 </div>
               </div>
             </div>
@@ -232,33 +232,39 @@
             <div class="conditional" id="class-fields" hidden>
               <div class="form-grid">
                 <div class="field">
-                  <label for="group-name">Klasse / Gruppe *</label>
-                  <input id="group-name" name="group-name" type="text" maxlength="80" placeholder="Zum Beispiel 8b" required>
+                  <label for="group-name">Klasse / Gruppe <span class="optional">(optional)</span></label>
+                  <input id="group-name" name="group-name" type="text" maxlength="80" placeholder="Zum Beispiel 8b">
                 </div>
                 <div class="field">
-                  <label for="contact-person">Ansprechperson *</label>
+                  <label for="contact-person">Ansprechperson <span class="optional">(optional)</span></label>
                   <input id="contact-person" name="contact-person" type="text" maxlength="100" placeholder="Name der Klassensprecherin / des Klassensprechers">
                 </div>
                 <div class="field full">
-                  <label for="group-teacher">Zuständige Lehrkraft *</label>
+                  <label for="group-teacher">Zuständige Lehrkraft <span class="optional">(optional)</span></label>
                   <input id="group-teacher" name="group-teacher" type="text" maxlength="100" placeholder="Vor- und Nachname">
                 </div>
               </div>
             </div>
 
             <div class="field">
-              <label for="contact-email">E-Mail für Rückfragen *</label>
-              <input id="contact-email" name="contact-email" type="email" autocomplete="email" maxlength="150" placeholder="name@beispiel.de" required>
-              <span class="help">Am besten die Schul-E-Mail-Adresse. Sie wird nur zur Bearbeitung der Anfrage verwendet.</span>
-            </div>
-            <div class="field">
               <label for="contact-method">Wie erreichen wir dich am besten? *</label>
               <select id="contact-method" name="contact-method" required>
                 <option value="">Bitte auswählen …</option>
-                <option>E-Mail</option>
-                <option>Über die angegebene Lehrkraft</option>
-                <option>Über das Sekretariat</option>
+                <option value="E-Mail">E-Mail</option>
+                <option value="WebUntis">WebUntis</option>
+                <option value="Über die angegebene Lehrkraft">Über die angegebene Lehrkraft</option>
+                <option value="Über das Sekretariat">Über das Sekretariat</option>
               </select>
+            </div>
+            <div class="field" id="email-contact-field" hidden>
+              <label for="contact-email">E-Mail für Rückfragen *</label>
+              <input id="contact-email" name="contact-email" type="email" autocomplete="email" maxlength="150" placeholder="name@beispiel.de" disabled>
+              <span class="help">Die E-Mail-Adresse wird nur zur Bearbeitung deiner Anfrage verwendet.</span>
+            </div>
+            <div class="field" id="webuntis-contact-field" hidden>
+              <label for="webuntis-name">Dein Name in WebUntis *</label>
+              <input id="webuntis-name" name="webuntis-name" type="text" autocomplete="username" maxlength="100" placeholder="Name, unter dem du in WebUntis zu finden bist" disabled>
+              <span class="help">Damit wir dich in unserer Schulsoftware finden können.</span>
             </div>
 
             <fieldset class="field full">
@@ -309,7 +315,7 @@
 
             <div class="field full">
               <label for="details">Dein Wunsch / deine Bestellung im Detail *</label>
-              <textarea id="details" name="details" maxlength="2000" placeholder="Was genau brauchst du? Gibt es ein bestimmtes Modell, einen Anlass oder weitere wichtige Infos? Je genauer, desto besser können wir helfen." required></textarea>
+              <textarea id="details" name="details" maxlength="2000" placeholder="Was genau brauchst du? Gibt es ein bestimmtes Modell, einen Anlass oder weitere wichtige Infos?"></textarea>
             </div>
 
             <label class="consent field full">
@@ -353,6 +359,11 @@
     const studentFields = document.querySelector("#student-fields");
     const teacherFields = document.querySelector("#teacher-fields");
     const classFields = document.querySelector("#class-fields");
+    const contactMethod = document.querySelector("#contact-method");
+    const emailContactField = document.querySelector("#email-contact-field");
+    const emailContactInput = document.querySelector("#contact-email");
+    const webuntisContactField = document.querySelector("#webuntis-contact-field");
+    const webuntisNameInput = document.querySelector("#webuntis-name");
     const status = document.querySelector("#form-status");
     const fallback = document.querySelector("#email-fallback");
     const emailCopy = document.querySelector("#email-copy");
@@ -361,16 +372,9 @@
     function setSection(section, visible) {
       section.hidden = !visible;
       section.querySelectorAll("input").forEach(input => {
-        input.required = visible && input.dataset.required === "true";
         if (!visible) input.value = "";
       });
     }
-
-    studentFields.querySelectorAll("input").forEach(input => { input.dataset.required = "true"; });
-    teacherFields.querySelectorAll("input").forEach(input => {
-      if (input.id === "teacher-class") input.dataset.required = "true";
-    });
-    classFields.querySelectorAll("input").forEach(input => { input.dataset.required = "true"; });
 
     requesterType.addEventListener("change", () => {
       const type = requesterType.value;
@@ -378,6 +382,25 @@
       setSection(teacherFields, type === "Lehrkraft");
       setSection(classFields, type === "Klasse oder Gruppe");
     });
+
+    function updateContactFields() {
+      const method = contactMethod.value;
+      const needsEmail = method === "E-Mail";
+      const needsWebUntis = method === "WebUntis";
+
+      emailContactField.hidden = !needsEmail;
+      emailContactInput.disabled = !needsEmail;
+      emailContactInput.required = needsEmail;
+      if (!needsEmail) emailContactInput.value = "";
+
+      webuntisContactField.hidden = !needsWebUntis;
+      webuntisNameInput.disabled = !needsWebUntis;
+      webuntisNameInput.required = needsWebUntis;
+      if (!needsWebUntis) webuntisNameInput.value = "";
+    }
+
+    contactMethod.addEventListener("change", updateContactFields);
+    updateContactFields();
 
     function fieldValue(name) {
       return form.elements.namedItem(name)?.value.trim() || "Keine Angabe";
@@ -390,8 +413,9 @@
         "",
         `Anfragende Person: ${fieldValue("full-name")}`,
         `Anfrage als: ${fieldValue("requester-type")}`,
-        `Kontakt-E-Mail: ${fieldValue("contact-email")}`,
         `Kontaktwunsch: ${fieldValue("contact-method")}`,
+        `Kontakt-E-Mail: ${contactMethod.value === "E-Mail" ? fieldValue("contact-email") : "Keine Angabe"}`,
+        `WebUntis-Name: ${contactMethod.value === "WebUntis" ? fieldValue("webuntis-name") : "Keine Angabe"}`,
         "",
         "Schulbezug:",
         `Klasse / Gruppe: ${fieldValue("student-class") !== "Keine Angabe" ? fieldValue("student-class") : fieldValue("teacher-class") !== "Keine Angabe" ? fieldValue("teacher-class") : fieldValue("group-name")}`,
