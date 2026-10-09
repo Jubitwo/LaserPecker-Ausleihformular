@@ -1,15 +1,11 @@
 # Innovativ AG – Wunschzettel und Bestellung
 
-Formular für Wünsche, Bestellungen und Anfragen an die Innovativ AG. Es richtet sich unter anderem an Lernende, Lehrkräfte und Klassen oder Gruppen.
-
-## Formular unterstützt
-
-Taschenrechner, Gravurwünsche, Material- oder Unterrichtsideen, Sammelanfragen und weitere Vorschläge.
+Formular für Wünsche und Bestellungen, etwa zu Taschenrechnern, Gravuren, Material- oder Unterrichtsideen und Anliegen für Klassen oder Gruppen.
 
 ## Schnellstart
 
-Repository herunterladen oder klonen und index.html in einem aktuellen Browser öffnen.
+Repository herunterladen oder klonen und [index.html](./index.html) in einem aktuellen Browser öffnen.
 
 ## Dokumentation
 
-- [Formularablauf, Felder und Datenschutzprüfung](./docs/README.md)
+- [Formularfelder, Ablauf und Datenschutzprüfung](./docs/README.md)
