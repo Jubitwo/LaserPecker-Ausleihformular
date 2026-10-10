@@ -2,7 +2,11 @@
 
 Formular für Wünsche und Bestellungen, etwa zu Taschenrechnern, Gravuren, Material- oder Unterrichtsideen und Anliegen für Klassen oder Gruppen.
 
-## Schnellstart
+## Online öffnen
+
+[Wunschzettel und Bestellung](https://jubitwo.github.io/InnovativAG/)
+
+## Lokal starten
 
 Repository herunterladen oder klonen und [index.html](./index.html) in einem aktuellen Browser öffnen.
 
